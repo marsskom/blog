@@ -1,9 +1,10 @@
 ---
 layout: post
-title: Load CSV into MySQL
+title: Loading CSV into MySQL
 ---
 
-# Loading CSV into MySQL
+Interesting task how to load data from **csv** file into **MySQL** table. 💭
+
 
 > Disclaimer: All matches in the task and code with real cases are random!
 
