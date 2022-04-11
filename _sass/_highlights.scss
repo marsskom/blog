@@ -9,6 +9,8 @@
 code {
   font-family:'Bitstream Vera Sans Mono','Courier', monospace;
   color: #d8d8d8;
+  white-space: pre !important;
+  overflow-x:scroll !important;
 }
 
 .highlighter-rouge { 
