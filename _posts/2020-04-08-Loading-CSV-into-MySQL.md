@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Loading CSV into MySQL
+categories: [PHP, MySQL]
 ---
 
 Interesting task how to load data from **csv** file into **MySQL** table. 💭
@@ -8,12 +9,18 @@ Interesting task how to load data from **csv** file into **MySQL** table. 💭
 
 > Disclaimer: All matches in the task and code with real cases are random!
 
+
+---
+
 ## Table Of Contents
 
 1. [Preconditions](#preconditions)
 2. [The Task](#the-task)
 3. [The MySQL schema](#the-mysql-schema)
 4. [The Solutions](#the-solutions)
+
+
+---
 
 
 ## Preconditions
@@ -25,6 +32,9 @@ Long story short, I **failed** 🔥 because I was concentrated 🤔 on the PHP c
 Of course, I'm not agree with a couple remarks but it doesn't matter now. I made conclusions for myself and it is the most important.
 
 But enough for that. Let's go to the task 🎂.
+
+---
+
 
 ## The Task
 
@@ -67,9 +77,14 @@ Or in table format 😅 :
 Will do you use the PHP? Maybe. 🙅‍♂️ *Or not?*
 
 
+---
+
+
 ## The MySQL schema
 
 Let's start from **schema** creation.
+
+
 
 ### Employees Table 👷
 
@@ -85,6 +100,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
 
 The `id` column is `BIGINT` type because all values is less than 20 digits.
 
+
+
 ### Accounts Table 🧻
 
 ```sql
@@ -98,6 +115,8 @@ CREATE TABLE IF NOT EXISTS `account` (
 ```
 
 Account `number` always contains `27` chars.
+
+
 
 ### Products Table 🥖
 
@@ -120,9 +139,15 @@ Maybe you have a question why I use `Account` composite key as foreign key insid
 
 Data is not so big for duplication in two tables, I think. Moreover you is free to use `INSERT IGNORE` (batch mode) without `SELECT` for account id inside and don't store primary key in PHP variable (remember about memory).
 
+
+---
+
+
 ## The Solutions
 
 🧗‍♀️
+
+
 
 ### Pure PHP 🧰
 
@@ -160,11 +185,15 @@ public function read(): Generator
 
 Then you should assembly the big `INSERT` query thinking about query length (execute query after 500 read lines or something similar) and execute whole query until the end of the **csv** file.
 
+
+
 ### Pure MySQL 🪛
 
 What will be when I say to you that you can use **MySQL** only ❓
 
 Yeah, it is more cooler, doesn't it ❓
+
+
 
 #### Data As Is 💆
 
@@ -216,11 +245,15 @@ new PDO(
 );
 ```
 
+
 > Of course, you can run `LOAD DATA LOCAL INFILE` command under the **MySQL** client as well. But here we work with PHP.
+
 
 As you can guess it is not enough. The code above just fill the `file_data` table, but we need data in our tables.
 
 OK 👍
+
+
 
 Let's create [the trigger][MySQL-Triggers] 🥱 :
 
@@ -256,6 +289,8 @@ END;
 ```
 
 That's why our script truncate `file_data` table before execution so always keeps table clean ⚛️ .
+
+
 
 #### `Account` Primary Key 🛫
 
@@ -320,6 +355,8 @@ BEGIN
     );
 END;
 ```
+
+
 
 💣 Interesting solution that's why I decided keep it in my blog. 💣
 
