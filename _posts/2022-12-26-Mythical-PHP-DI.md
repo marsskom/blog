@@ -4,7 +4,11 @@ title: Mythical PHP DI
 categories: [PHP, DI, Idea]
 ---
 
-What if PHP DI[^1] will look like this?:
+What if PHP DI[^1] will look like this?: `$object = new Application(cache: new DbCache());`
+
+---
+
+Or full example:
 
 ```php
 class Application
@@ -21,8 +25,6 @@ $object = new Application(cache: new DbCache());
 ```
 
 You don't need to use container **explicitly** like `$container->create(...` instead of that you can use operator `new`[^2] as native PHP construction.
-
----
 
 
 ## Beginnings
